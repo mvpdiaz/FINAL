@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Formik, Field, Form } from 'formik';
 import Link from 'next/link';
+import "../../styles/registro.css";
+
 
 const Registro = () => (
   <>
@@ -18,7 +20,7 @@ const Registro = () => (
           alert(JSON.stringify(values, null, 2));
         }}
       >
-      <Form>
+      <Form className='form'>
         <label htmlFor="firstName">NOMBRE</label> <br/>
         <Field id="firstName" name="firstName" placeholder="Nombre" /><br/>
         <label htmlFor="lastName">APELLIDO</label><br/>
@@ -32,12 +34,14 @@ const Registro = () => (
           placeholder="jane@gmail.com"
           type="email"
         />
-        <button type="submit">ENVIAR</button>
+        <button id="enviar"className='boton' type="submit">ENVIAR</button>
       </Form>
       </Formik>
     </div>
     <div>
+      <button className='boton'>
     <Link href="/inicio-sesion">Iniciar Sesión</Link>
+      </button>
     </div>
   </>
 );

@@ -3,6 +3,7 @@ import React from "react";
 import TodoForm from "./todo-form";
 import data from "./data.json";
 import Todo from "./todo";
+import "../../styles/lista-tareas.css";
 //invoco mis funciones
 export default function ListaDeTareas(){  const [todos, setTodos] = useState(data);
 

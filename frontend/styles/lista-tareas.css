@@ -1,6 +1,7 @@
 .container{
 
-    background: linear-gradient(black, white);
+    background: rgb(25, 141, 143);
+    background: linear-gradient(0deg, rgb(25, 141, 143) 50%, rgba(45,253,167,1) 100%);
     display: grid;
     height: 800px;
     align-content: space-evenly;
@@ -9,6 +10,8 @@
     background-color: #2196F3;
     padding: 10px; 
     text-align: center;
+    margin-left: 100px;
+    margin-right: 100px;
 }
 .add-btn {
     width: 10%;
