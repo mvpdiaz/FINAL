@@ -27,6 +27,7 @@ from app_ListaDeTareas.views import TareaListCreateView, TareaDetailView
 #from django.conf.urls import url
 
 from rest_framework.authtoken.views import obtain_auth_token
+from app_ListaDeTareas import views
 
 router = DefaultRouter()
 router.register(r'tareas', TareaViewSet)
@@ -42,5 +43,6 @@ urlpatterns =[
     path('accounts/profile/redirect/', redireccionar_a_lista_de_tareas, name='redirect_to_tareas'),
     path('api/tareas/', TareaListCreateView.as_view(), name='tarea-list-create'),
     path('api/tareas/<int:pk>/', TareaDetailView.as_view(), name='tarea-detail'),
+    
 ]
 urlpatterns += router.urls

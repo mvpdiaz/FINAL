@@ -1,39 +1,69 @@
-import { useState } from "react";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import TodoForm from "./todo-form";
-import data from "./data.json";
 import Todo from "./todo";
-import "../../styles/lista-tareas.css";
-//invoco mis funciones
-export default function ListaDeTareas(){  const [todos, setTodos] = useState(data);
+import axios from 'axios';
 
-  const onMarkComplete = (id) => {setTodos(
-      todos.map((todo) => {
-        return todo.id === Number(id)
-          ? { ...todo, completed: !todo.completed }
-          : { ...todo };
-      })
-    );
-  };
-  //constante para el boton de agregar item
-  let addTodo = (newTodo) => {
-    console.log("newTodo", newTodo);
-    let newItem = { id: new Date().getTime(), task: newTodo, completed: false };
+export default function ListaDeTareas() {
+  const [todos, setTodos] = useState([]);
 
-    setTodos([...todos, newItem]);
+  // Cargar tareas desde la API al iniciar el componente
+  useEffect(() => {
+    fetchTarea();
+  }, []);
+
+  const fetchTarea = async () => {
+    try {
+      const response = await axios.get('/api/tarea/');
+      setTodos(response.data);
+    } catch (error) {
+      console.error('Error al obtener las tareas:', error);
+    }
   };
-  //constante para eliminar items
-  const onDeleteItem = (id) => {
-    setTodos([...todos].filter((item) => item.id !== id));
+
+  const onMarkComplete = async (id) => {
+    try {
+      await axios.put(`/api/Tarea/${id}/`, { completed: true });
+      setTodos((prevTodos) =>
+        prevTodos.map((todo) =>
+          todo.id === id ? { ...todo, completed: true } : todo
+        )
+      );
+    } catch (error) {
+      console.error(`Error al marcar como completada la tarea con ID ${id}:`, error);
+    }
   };
-  //para edicion de tarea
-  const onEditTask = (id, updatedTask) => {
-    setTodos((prevTodos)=>
-      prevTodos.map((todo) =>
-        todo.id === id ? { ...todo, task: updatedTask } : todo
-      ),
-    );
+
+  const addTodo = async (newTodo) => {
+    try {
+      const response = await axios.post('/api/Tarea/', { tarea: newTodo, completed: false });
+      setTodos([...todos, response.data]);
+    } catch (error) {
+      console.error('Error al agregar una tarea:', error);
+    }
   };
+
+  const onDeleteItem = async (id) => {
+    try {
+      await axios.delete(`/api/Tarea/${id}/`);
+      setTodos((prevTodos) => prevTodos.filter((item) => item.id !== id));
+    } catch (error) {
+      console.error(`Error al eliminar la tarea con ID ${id}:`, error);
+    }
+  };
+
+  const onEditTask = async (id, updatedTask) => {
+    try {
+      const response = await axios.put(`/api/Tareas/${id}/`, { tarea: updatedTask });
+      setTodos((prevTodos) =>
+        prevTodos.map((todo) =>
+          todo.id === id ? { ...todo, tarea: response.data.tarea } : todo
+        )
+      );
+    } catch (error) {
+      console.error(`Error al editar la tarea con ID ${id}:`, error);
+    }
+  };
+
   return (
     <div className="container">
       <TodoForm addTodo={addTodo} />
@@ -41,8 +71,8 @@ export default function ListaDeTareas(){  const [todos, setTodos] = useState(dat
         todos={todos}
         onMarkComplete={onMarkComplete}
         onDeleteItem={onDeleteItem}
-        onEditTask={onEditTask}// Pasar la función de edición a Todo
+        onEditTask={onEditTask}
       />
     </div>
   );
-};
+}

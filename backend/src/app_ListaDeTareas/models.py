@@ -4,6 +4,7 @@ from django.conf import settings
 from django.contrib.auth.models import User
 
 # Create your models here.
+
 class ListaTareas(models.Model):
     nombreTarea=models.CharField(max_length=255)
     fechaCreacionTarea=models.DateField(auto_now_add=True) #2023-09-05
