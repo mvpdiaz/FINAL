@@ -16,12 +16,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.contrib.auth import views as auth_views
+from app_ListaDeTareas.views import PrincipalView
+from app_ListaDeTareas.views import ProfileView
 #from django.conf.urls import url
 
 from rest_framework.authtoken.views import obtain_auth_token
 
 urlpatterns = [
     path('users/', include('users.urls')),
+    path("login/", auth_views.LoginView.as_view(), name ="login"),
+    path("logout/", auth_views.LogoutView.as_view(), name="logout"),
     path('admin/', admin.site.urls),
-    path(r'^auth/',obtain_auth_token)
+    path(r'^auth/',obtain_auth_token),
+    path('', PrincipalView.as_view(), name='inicio'),
+    path('accounts/profile/', ProfileView.as_view(), name='profile')
 ]

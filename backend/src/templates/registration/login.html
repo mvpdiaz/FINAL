@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Página de Login</h2>
+
+{% if form.errors %}
+<h3>Han ocurrido errores en el login.</h3>
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Ingresar</button>
+</form>
+
+{% endblock content %}
