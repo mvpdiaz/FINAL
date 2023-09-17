@@ -3,7 +3,9 @@ import React from "react";
 import TodoForm from "./todo-form";
 import data from "./data.json";
 import Todo from "./todo";
+import Link from "next/link";
 import "../../styles/lista-tareas.css";
+
 //invoco mis funciones
 export default function ListaDeTareas(){  const [todos, setTodos] = useState(data);
 
@@ -43,6 +45,12 @@ export default function ListaDeTareas(){  const [todos, setTodos] = useState(dat
         onDeleteItem={onDeleteItem}
         onEditTask={onEditTask}// Pasar la función de edición a Todo
       />
-    </div>
+      <Link href="http://127.0.0.1:8000/accounts/profile/">
+        <p>Volver a tu Perfil</p>
+      /</Link>
+      </div>
   );
 };
+
+
+

@@ -19,10 +19,10 @@ from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from app_ListaDeTareas.views import PrincipalView
 from app_ListaDeTareas.views import ProfileView
-from app_ListaDeTareas.views import redireccionar_a_lista_de_tareas
 from rest_framework.routers import DefaultRouter
 from app_ListaDeTareas.views import TareaViewSet
 from app_ListaDeTareas.views import TareaListCreateView, TareaDetailView
+
 
 #from django.conf.urls import url
 
@@ -38,8 +38,7 @@ urlpatterns =[
     path('admin/', admin.site.urls),
     path(r'^auth/',obtain_auth_token),
     path('', PrincipalView.as_view(), name='inicio'),
-    path('accounts/profile/', ProfileView.as_view(), name='profile'),
-    path('accounts/profile/redirect/', redireccionar_a_lista_de_tareas, name='redirect_to_tareas'),
+    path('accounts/profile/', ProfileView.as_view(), name='user_profile'),
     path('api/tareas/', TareaListCreateView.as_view(), name='tarea-list-create'),
     path('api/tareas/<int:pk>/', TareaDetailView.as_view(), name='tarea-detail'),
 ]

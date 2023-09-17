@@ -126,7 +126,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-LOGIN_REDIRECT_URL = '/accounts/profile/redirect/'
+
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
